@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Simple To Do</title>
+    <style>
+        .flex {
+            display: flex;
+            padding: 0.5em;
+        }
+        button {
+            margin: 0 0.5em;
+        }
+        .myButton {
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-center mt-5">TO DOs</h1>
+    <div class="container col-sm-6">
+        <form method="post" action="/">
+            <input class="form-control" type="text" name="todo" placeholder="New To Do">
+            <button class="btn btn-primary mt-4" type="submit">Add</button>
+        </form>
+    </div>
+    <div class="container col-sm-6">
+        <ul>
+            {% for single_todo in todos_template %}
+            <form class="flex" action="/check-todo" method="post">
+                <!-- important line, because this tells the browser which todo -->
+                <input type="hidden"  name="todo" value="{{ single_todo['todo'] }}">
+                {% if not single_todo['check']  %}
+                <li>{{ single_todo['todo'] }}</li>
+                {% else %}
+                <li><s>{{ single_todo['todo'] }}</s></li>
+                {% endif  %}
+                {% if not single_todo['check']  %}
+                <button class="myButton" type="submit">☐</button>
+                {% else %}
+                <button class="myButton" type="submit">☑</button>
+                {% endif %}
+            </form>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
