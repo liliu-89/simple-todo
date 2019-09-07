@@ -1,3 +1,4 @@
 Flask==1.0.2
 sqla_wrapper
 gunicorn==19.9.0
+psycopg2
